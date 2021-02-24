@@ -4,11 +4,31 @@
   
   <url>
     <loc>https://aaron-schroeder.github.io/</loc>
-    <lastmod>2021-02-14T09:28:58-07:00</lastmod>
+    <lastmod>2021-02-24T08:53:30-07:00</lastmod>
   </url>
   
   <url>
     <loc>https://aaron-schroeder.github.io/posts/</loc>
+    <lastmod>2021-02-24T08:53:30-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://aaron-schroeder.github.io/posts/ways-to-move/</loc>
+    <lastmod>2021-02-24T08:53:30-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://aaron-schroeder.github.io/categories/cat-1/</loc>
+    <lastmod>2021-02-14T09:28:58-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://aaron-schroeder.github.io/categories/cat-2/</loc>
+    <lastmod>2021-02-14T09:28:58-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://aaron-schroeder.github.io/categories/</loc>
     <lastmod>2021-02-14T09:28:58-07:00</lastmod>
   </url>
   
@@ -18,16 +38,23 @@
   </url>
   
   <url>
-    <loc>https://aaron-schroeder.github.io/about/</loc>
-    <lastmod>2021-02-14T08:58:56-07:00</lastmod>
+    <loc>https://aaron-schroeder.github.io/tags/tag-1/</loc>
+    <lastmod>2021-02-14T09:28:58-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://aaron-schroeder.github.io/categories/</loc>
+    <loc>https://aaron-schroeder.github.io/tags/tag-2/</loc>
+    <lastmod>2021-02-14T09:28:58-07:00</lastmod>
   </url>
   
   <url>
     <loc>https://aaron-schroeder.github.io/tags/</loc>
+    <lastmod>2021-02-14T09:28:58-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://aaron-schroeder.github.io/about/</loc>
+    <lastmod>2021-02-14T08:58:56-07:00</lastmod>
   </url>
   
 </urlset>

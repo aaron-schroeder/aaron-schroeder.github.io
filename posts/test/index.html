@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
   
-  <title>Test</title>
-  <meta property="og:title" content="Test" />
-  <meta name="twitter:title" content="Test" />
+  <title>elevation-query Readme</title>
+  <meta property="og:title" content="elevation-query Readme" />
+  <meta name="twitter:title" content="elevation-query Readme" />
   
 
   
@@ -31,11 +31,11 @@
 
   <link rel="stylesheet" href="https://aaron-schroeder.github.io/css/style.css" />
   
-  
+  <link rel="stylesheet" href="https://aaron-schroeder.github.io/css/custom.css">
   
   <script type="text/javascript" src="https://aaron-schroeder.github.io/js/bundle.js"></script>
-  
-
+  <link href='http://fonts.googleapis.com/css?Vollkorn&display=swap' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?Lato&display=swap' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -53,7 +53,7 @@
 
 <article class="p-article">
   <header>
-    <h1>Test</h1>
+    <h1>elevation-query Readme</h1>
     <div>
       
         <div class="c-time">
@@ -65,11 +65,195 @@
         </div>
       
       
+      <a href="https://aaron-schroeder.github.io/tags/tag-1" class="c-tag">Tag 1</a>
+      
+      <a href="https://aaron-schroeder.github.io/tags/tag-2" class="c-tag">Tag 2</a>
+      
     </div>
   </header>
   
   <section id="js-article" class="p-article__body">
-    <p>Blah blah</p>
+    <p>This project originated as the part of my
+<a href="https://github.com/aaron-schroeder/spatialfriend">spatialfriend package</a> that
+retrieved elevation coordinates from various sources locally and around the web.
+Lately, I&rsquo;ve  been interested in keeping my work in more self-contained modules with
+lighter dependencies, so I split it out.</p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#dependencies-and-installation">Dependencies and Installation</a>
+<ul>
+<li><a href="#base-installation">Base Installation</a></li>
+<li><a href="#extra-elevaton-values-from-google-maps-api">Extra: Elevation values from Google Maps API</a></li>
+<li><a href="#extra-elevation-values-from-img-and-geotiff-files">Extra: Elevation values from <code>.img</code> and <code>.geotiff</code> files</a></li>
+<li><a href="#possible-future-data-sources">Possible future data sources</a></li>
+</ul>
+</li>
+<li><a href="#example">Example</a> <!-- - [Project Status](#project-status) --></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<hr>
+<h2 id="introduction">Introduction</h2>
+<p>&ldquo;How high up do you think we are right now?&rdquo;</p>
+<p>There are high-quality models of the Earth&rsquo;s surface out there. From those models,
+it&rsquo;s possible to generate so-called &ldquo;digital elevation models&rdquo; (DEMs), which represent
+the elevation above sea level at any point within the geographic bounds of the model.
+And when you record an activity with a GPS-enabled device, you&rsquo;ll get (at the very
+least) a series of coordinates representing your horizontal position on the Earth.
+Combine those two sources of data, and you can find out your elevation at each point
+along your route.</p>
+<p>The <code>elevation-query</code> package attempts to bridge the gap between GPS locations and
+elevation data. Give it a series of (lat, lon) coordinates, and it will give you a series
+of elevation coordinates. I don&rsquo;t like to trust just one source of truth, so I provide multiple
+sources of elevation. That way you can compare and contrast. The National Map, Google Maps,
+open-elevation, and even your own data files. Compare them all. See how they work for you.
+You&rsquo;re in charge, buster.</p>
+<p><em>What about Strava&rsquo;s elevation data, and Garmin&rsquo;s, and &hellip; ?</em> I don&rsquo;t know where they
+get that stuff, and they love to be opaque about their data sources and algorithms. I don&rsquo;t
+trust what I don&rsquo;t understand. I figured I could get my hands on better stuff anyways.</p>
+<p><em>What about my GPS device&rsquo;s elevation?</em> A constellation of satellites is trying to
+triangulate your elevation from outer space. The vertical accuracy of these satellites is
+abysmal. You might shouldn&rsquo;t look at that data at all.</p>
+<p><em>What about my high end barometric altimeter?</em> From what I&rsquo;ve seen, those work ok. Unless
+the weather changes during your hike, altering the barometric pressure without you climbing.
+Or if you fail to calibrate it. Also, I don&rsquo;t own one, and I&rsquo;m looking to improve my own
+station in life!</p>
+<p>There are limitations here that cannot be overcome by this package alone. Even on a
+perfectly accurate model of the Earth, with every little detail modeled down to a hair&rsquo;s
+breadth, you will not get accurate elevation coordinates if your GPS doesn&rsquo;t have you in
+the right horizontal location. And even if you have the world&rsquo;s best GPS, you will not get
+accurate data from a poorly modeled DEM. The National Map data that this package grants
+easy access to&hellip;that&rsquo;s a good DEM (where it exists). So if you have good GPS coordinates,
+you should get good elevation data from it! The cruel joke is, GPS devices tend to suffer
+their worst accuracy in exactly the places where you want it the most: canyons and mountains
+where even a small horizontal inaccuracy would make your elevation all wacky. If your GPS
+says you&rsquo;re down in the gully, well&hellip;the DEM is gonna give you elevation coordinates for
+that gully. That&rsquo;s where we need to smooth out your series of elevation coordinates, ruling
+out silly elevation gains and losses along your route. Or we could correct your horizontal
+position to a known trail (a process called map-matching), and then look up your elevation
+coordinates. I am currently working on
+<a href="https://github.com/aaron-schroeder/py-elevation">correcting your improbable elevation time series</a>
+(&ldquo;NO I did NOT fall down in the valley for five seconds before climbing back up a sheer cliff&rdquo;),
+and I hope to improve <a href="https://github.com/aaron-schroeder/mapmatching">my map-matching algorithm</a>
+so you can snap your coordinates back to a real trail.</p>
+<p>In the meantime, enjoy these high quality elevation data!!! You don&rsquo;t need a high-end GPS watch
+with a barometric altimiter to tell you this stuff - there are workarounds if you are inspired.</p>
+<hr>
+<h2 id="dependencies-and-installation">Dependencies and Installation</h2>
+<h3 id="base-installation">Base Installation</h3>
+<p><code>elevation-query</code> allows querying of the National Map&rsquo;s
+<a href="https://nationalmap.gov/epqs/">Elevation Point Query Service</a>. This
+service exposes data from the National Map&rsquo;s 1/3 arc-second Digital
+Elevation Model. 1/3 arc-second refers to the data&rsquo;s horizontal
+resolution in terms of degrees; this equates to roughly 30 meters.</p>
+<p><code>elevation-query</code> also provides access to the
+<a href="https://open-elevation.com/">open-elevation</a> REST API through a similar interface.
+This is not recommended, because the API has become overloaded as more and more users
+have discovered it. The National Map&rsquo;s reliable REST API should provide superior
+performance and data, as long as you are looking for coordinates in the U.S.</p>
+<!-- open-elevation also lets you download other data from the web (SRTM etc)
+and self-host your own service. From the looks of the Github repo, the download process
+might not be working anymore. [There's another updated fork here](https://github.com/Developer66/open-elevation),
+I think...kind of a mess. I honestly have not dug in too deep, because the elevation 
+service from The National Map has been suiting my needs just fine. -->
+<p><a href="https://pypi.org/project/requests/">requests</a> is required for the
+base installation.</p>
+<p>To install (since I am not on pypi yet), first clone this repo.</p>
+<pre><code>git clone https://github.com/aaron-schroeder/elevation-query.git
+</code></pre><p>Now you have a local version of this package that you can install with <code>pip</code>
+(the <code>setup.py</code> file is configured to make this work).</p>
+<p>Activate whatever virtual environment where you wish to install <code>query</code>,
+and then:</p>
+<pre><code>pip install ${local_path_to_elevation-query_dir}
+</code></pre><h3 id="extra-elevation-values-from-google-maps-api">Extra: Elevation values from Google Maps API</h3>
+<p>Google Maps provides access to its Elevation API, but you must provide
+your own API Key. Google will charge you if you exceed the number of free
+requests in a month. Use at your own risk!</p>
+<p><a href="https://github.com/googlemaps/google-maps-services-python">Google Maps</a>
+and <a href="http://www.numpy.org/">NumPy</a> are required.</p>
+<p>To install the extra requirements, follow the <a href="#base-installation">base installation</a>
+instructions with this slight modification:</p>
+<pre><code>pip install -e ${local_path_to_elevation-query_dir}[google]
+</code></pre><h3 id="extra-elevation-values-from-img-and-geotiff-files">Extra: Elevation values from <code>.img</code> and <code>.geotiff</code> files</h3>
+<p><code>elevation-query</code> allows querying of user-owned <code>.img</code> and <code>.geotiff</code> files
+that contain elevation data. Such files are available from
+<a href="https://apps.nationalmap.gov/downloader">the National Map&rsquo;s download page</a>.</p>
+<p>:warning: Note :warning: this package extra requires <a href="https://rasterio.readthedocs.io/en/latest/"><code>rasterio</code></a>
+and <a href="https://pyproj4.github.io/pyproj/stable/"><code>pyproj</code></a>, which
+depend on some heavy-duty geospatial libraries being installed on your computer.
+I cannot cover how to get them here, as the install processes are system-dependent. Consult
+<a href="https://rasterio.readthedocs.io/en/latest/installation.html"><code>rasterio</code></a> and
+<a href="https://pyproj4.github.io/pyproj/stable/installation.html"><code>pyproj</code></a> documentation
+to get these set up (yes, that&rsquo;s me punting).</p>
+<p>To install the extra requirements, follow the <a href="#base-installation">base installation</a>
+instructions with this slight modification:</p>
+<pre><code>pip install -e ${local_path_to_elevation-query_dir}[local]
+</code></pre><h3 id="possible-future-data-sources">Possible future data sources</h3>
+<h4 id="open-topo-datahttpswwwopentopodataorg"><a href="https://www.opentopodata.org/">Open Topo Data</a></h4>
+<p>Something new. I am still investigating it.</p>
+<p>You can host it yourself or use the free public API.</p>
+<p>&ldquo;The public API has a number of open DEM datasets loaded, including a 30m global dataset,
+the 25m EU-DEM dataset for Europe, and the 10m NED dataset for the US.&rdquo;</p>
+<hr>
+<h2 id="example">Example</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> query
+
+latlons <span style="color:#f92672">=</span> [
+  (<span style="color:#ae81ff">40.03488860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03498860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03508860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03518860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03528860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03538860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03548860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03558860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03568860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>),
+  (<span style="color:#ae81ff">40.03578860164351</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">105.27230724626</span>)
+]
+
+<span style="color:#75715e"># Each of the following query functions will return</span>
+<span style="color:#75715e"># your elevation values in meters.</span>
+
+<span style="color:#75715e"># Only the first two come with the base installation.</span>
+elevs_eqps <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>national_map_epqs(latlons)
+
+<span style="color:#75715e"># Usually, this is very slow, or fails altogether...</span>
+elevs_oe <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>open_elevation(latlons)
+
+<span style="color:#75715e"># Make sure your latlons are within the horizontal bounds of your</span>
+<span style="color:#75715e"># elevation data files first!</span>
+elevs_1m <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>national_map_1m(latlons, <span style="color:#e6db74">&#39;data.tif&#39;</span>)  <span style="color:#75715e"># .img files work too</span>
+
+<span style="color:#75715e"># Need your own gmaps API key. Be careful and keep it</span>
+<span style="color:#75715e"># from being visible on the web.</span>
+<span style="color:#f92672">from</span> config <span style="color:#f92672">import</span> user_gmaps_key
+elevs_google <span style="color:#f92672">=</span> query<span style="color:#f92672">.</span>google(latlons, user_gmaps_key)
+</code></pre></div><hr>
+<h2 id="project-status">Project Status</h2>
+<p>Good to go. Not sure if I feel like it makes sense to put on PyPi though.</p>
+<h3 id="future-work">Future Work</h3>
+<ul>
+<li>Generate series of GPS points to compare elevation datasets with each other,
+and test the effect of smoothing with <code>py-elevation</code> algorithms.</li>
+</ul>
+<hr>
+<h2 id="contact">Contact</h2>
+<p>You can get in touch with me at the following places:</p>
+<!-- - Website: <a href="https://trailzealot.com" target="_blank">trailzealot.com</a>-->
+<ul>
+<li>GitHub: <a href="https://github.com/aaron-schroeder" target="_blank">github.com/aaron-schroeder</a></li>
+<li>LinkedIn: <a href="https://www.linkedin.com/in/aarondschroeder/" target="_blank">linkedin.com/in/aarondschroeder</a></li>
+<li>Twitter: <a href="https://twitter.com/trailzealot" target="_blank">@trailzealot</a></li>
+<li>Instagram: <a href="https://instagram.com/trailzealot" target="_blank">@trailzealot</a></li>
+</ul>
+<hr>
+<h2 id="license">License</h2>
+<p><a href="http://badges.mit-license.org"><img src="http://img.shields.io/:license-mit-blue.svg" alt="License"></a></p>
+<p>This project is licensed under the MIT License. See
+<a href="https://github.com/aaron-schroeder/py-activityreaders/blob/master/LICENSE">LICENSE</a>
+file for details.</p>
 
   </section>
   <footer>
@@ -80,6 +264,7 @@
       <div class="c-pagination__ctrl">
         <div class="c-pagination__newer">
           
+          <a href="https://aaron-schroeder.github.io/posts/ways-to-move/">Newer</a>
           
         </div>
         <div class="c-pagination__older">
@@ -97,14 +282,85 @@
 </article>
   </main>
   
+<nav class="l-nav p-menu">
+  <ul class="p-menu__lists">
+    
+      
+      <li class="p-menu__listitem">
+        <a href="/">Blog</a>
+      </li>
+      
+    
+      
+      <li class="p-menu__listitem">
+        <a href="/about">About</a>
+      </li>
+      
+    
+      
+      <li class="p-menu__listitem">
+        <a href="/tags">Tags</a>
+      </li>
+      
+    
+  </ul>
+</nav>
+
 
   <footer class="l-footer">
     
+<ul class="c-links">
+  
+  
+  
+  
+  
+  <li class="c-links__item">
+    <a href="https://github.com/aaron-schroeder" target="_blank">
+      <svg viewBox="0 0 64 64" class="c-links__icon">
+        <title>github</title>
+        <use xlink:href="#icon-github"></use>
+      </svg>
+    </a>
+  </li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="c-links__item">
+    <a href="https://linkedin.com/in/aarondschroeder" target="_blank">
+      <svg viewBox="0 0 64 64" class="c-links__icon">
+        <title>linkedin</title>
+        <use xlink:href="#icon-linkedin"></use>
+      </svg>
+    </a>
+  </li>
+  
+  
+  <li class="c-links__item">
+    <a href="https://www.strava.com/athletes/36745343" target="_blank">
+      <svg viewBox="0 0 64 64" class="c-links__icon">
+        <title>strava</title>
+        <use xlink:href="#icon-strava"></use>
+      </svg>
+    </a>
+  </li>
+  
+</ul>
+
 
 
     <p class="p-copyright">
       
-        © 2021 Aaron Schroeder
+        &copy; 2021 Aaron Schroeder
       
     </p>
   </footer>
